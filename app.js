@@ -26,7 +26,9 @@ app.get('/n', routes.note);
 
 app.post('/s', routes.search);
 
-indexer.startIndexing(noteDir, false);
+indexer.startIndexing(noteDir, {
+    monitor: true
+});
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
