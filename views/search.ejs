@@ -1,18 +1,16 @@
 <% include header.ejs %>
 
-<div class="container">
-	<section class="content">
-	  <h6><%= items.length %> results found.</h6>
-	  <ul class="listing">
-		<% items.forEach(function(item) { %>
-		<li>
-		  <a href='/n?id=<%= item.id %>'>
-		    <%= item.title %>
-		  </a>
-		</li>
-		<% }) %>
-	  </ul>
-	</section>
-</div>
+<section class="content">
+  <h6><%= items.length %> results found.</h6>
+  <ul class="listing">
+	<% items.forEach(function(item) { %>
+	<li>
+	  <a href='/n?id=<%= item.id %>'>
+	    <%= item.title %>
+	  </a>
+	</li>
+	<% }) %>
+  </ul>
+</section>
 
 <% include footer.ejs %>
