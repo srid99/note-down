@@ -20,11 +20,11 @@ app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
+app.get("/*", routes.interceptor);
+
 app.get('/', routes.home);
 app.get('/s', routes.search);
 app.get('/n', routes.note);
-
-app.post('/s', routes.search);
 
 indexer.startIndexing(noteDir, {
     monitor: true
