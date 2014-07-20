@@ -3,6 +3,7 @@ var http = require('http');
 var path = require('path');
 
 var routes = require('./routes');
+var fs = require('./lib/file');
 var indexer = require('./lib/indexer');
 var config = require('./lib/config');
 
@@ -29,6 +30,10 @@ app.get('/s', routes.search);
 app.get('/n', routes.note);
 
 directories.forEach(function(dir) {
+    if (!fs.fileExists(dir)) {
+        throw new Error('The configured directory [ ' + dir + ' ] doesn\'t exist in the file system.');
+    }
+
     indexer.startIndexing(dir, {
         monitor: autoRelaod
     });

@@ -1,5 +1,5 @@
 {
     "port": 4001,
-    "directories": ["/home/sri/appl/workspace/nodejs/note-down/notes"],
+    "directories": ["./notes"],
     "auto-reload": true
 }
