@@ -4,12 +4,14 @@ var path = require('path');
 
 var routes = require('./routes');
 var indexer = require('./lib/indexer');
+var config = require('./lib/config');
 
 var app = express();
 
-var noteDir = path.join(__dirname, 'notes');
+var port = config.get('port');
+var directories = config.get('directories');
+var autoRelaod = config.get('auto-reload');
 
-app.set('port', process.env.PORT || 4001);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -26,10 +28,13 @@ app.get('/', routes.home);
 app.get('/s', routes.search);
 app.get('/n', routes.note);
 
-indexer.startIndexing(noteDir, {
-    monitor: true
+directories.forEach(function(dir) {
+    indexer.startIndexing(dir, {
+        monitor: autoRelaod
+    });
 });
 
-http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(port, function() {
+    console.log('Auto reload set to ' + autoRelaod);
+    console.log('Express server listening on port ' + port);
 });
