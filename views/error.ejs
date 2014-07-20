@@ -1,0 +1,16 @@
+<% include header.ejs %>
+
+<section class="content error">
+	<h1>Ooops! Unable to process the request.</h1>
+</section>
+
+<% if (showStacktrace) { %>
+	<h3>Stacktrace:</h3>
+	<div class="highlight">
+		<pre><code><%= error.stack %></code></pre>
+	</div>
+<% } else { %>
+	<h3>Check system logs for more details!</h3>
+<% } %>
+
+<% include footer.ejs %>

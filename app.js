@@ -12,16 +12,25 @@ var app = express();
 var port = config.get('port');
 var directories = config.get('directories');
 var autoRelaod = config.get('auto-reload');
+var devMode = config.get('dev-mode');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
-app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
+
+app.use(function(err, req, res, next) {
+	console.error("Error occured on proccessing the request.", err.stack);
+    res.status(err.status || 500);
+    res.render('error', {
+        error: err,
+        showStacktrace: devMode
+    });
+});
 
 app.get("/*", routes.interceptor);
 

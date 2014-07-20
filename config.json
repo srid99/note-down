@@ -1,5 +1,6 @@
 {
     "port": 4001,
     "directories": ["./notes"],
-    "auto-reload": true
+    "auto-reload": true,
+    "dev-mode": true
 }
