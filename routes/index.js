@@ -1,7 +1,6 @@
 var marked = require('marked');
 
 var indexer = require('../lib/indexer');
-var fs = require('../lib/file');
 
 exports.interceptor = function(req, res, next) {
     if (req.accepted[0].subtype === 'html') {
@@ -17,8 +16,7 @@ exports.home = function(req, res) {
 
 exports.note = function(req, res) {
     var id = req.param('id');
-    var file = indexer.get(id);
-    var content = fs.readFile(file);
+    var content = indexer.get(id);
     res.render('note', {
         content: marked(content)
     });
